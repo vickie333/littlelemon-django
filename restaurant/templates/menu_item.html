@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="column">
+        <h1>{{ menu_item.name }}</h1>
+        <p>{{ menu_item.description }}</p>
+        <p>Price: {{ menu_item.price }}.00</p>
+    </div>
+</div>
+{% endblock %}

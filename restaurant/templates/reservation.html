@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="row">
+    {% for booking in reservations %}
+        <div class="column">
+            <p>First Name: {{ booking.first_name }}</p>
+            <p>Last Name: {{ booking.last_name }}</p>
+            <p>Guest Number: {{ booking.guest_number }}</p>
+            <p>Comment: {{ booking.comment }}</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
