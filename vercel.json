@@ -16,5 +16,6 @@
             "src": "/.*",
             "dest": "littlelemon/wsgi.py"
         }
-    ]
+    ],
+    "buildCommand": "python3 manage.py collectstatic --no-input --clear"
 }
