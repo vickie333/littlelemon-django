@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-r-%0eqcja86asp_+*1@3d6t9wm65$7^p*v^m961p@)w7*3ob0n
 DEBUG = True
 
 # api/settings.py
-ALLOWED_HOSTS = ['.vercel.app']
+ALLOWED_HOSTS = ['.vercel.app','localhost','127.0.0.1']
 
 # Application definition
 
@@ -73,7 +73,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'littlelemon.wsgi.application'
+WSGI_APPLICATION = 'littlelemon.wsgi.app'
 
 
 # Database
@@ -125,9 +125,9 @@ USE_TZ = True
 
 # The settings for static files have been updated for the Graded assessment
 STATIC_URL = 'restaurant/static/'
-
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
 
 STATICFILES_DIRS = [
     "restaurant/static",
