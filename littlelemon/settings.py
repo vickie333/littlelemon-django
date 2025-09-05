@@ -80,12 +80,16 @@ WSGI_APPLICATION = 'littlelemon.wsgi.app'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-if os.environ.get('DATABASE_URL'):
+DATABASE_URL = os.environ.get('DATABASE_URL')
+
+if DATABASE_URL:
     DATABASES = {
-        'default': dj_database_url.config(conn_max_age=600)
+        'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600)
     }
+    # Asegurar sslmode para Neon
+    DATABASES['default'].setdefault('OPTIONS', {})
+    DATABASES['default']['OPTIONS'].setdefault('sslmode', 'require')
 else:
-    # Configuración local (SQLite)
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',

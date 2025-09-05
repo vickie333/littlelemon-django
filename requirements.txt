@@ -5,4 +5,4 @@ sqlparse==0.5.3
 wheel==0.45.1
 whitenoise==6.9.0
 dj-database-url==3.0.1
-psycopg==3.2.9
+psycopg[binary]==3.2.9
