@@ -1,8 +1,10 @@
 {
+    "installCommand": "python3 -m pip install -r requirements.txt --no-cache-dir",
     "builds": [
         {
             "src": "littlelemon/wsgi.py",
             "use": "@vercel/python",
+            
             "config": {
                 "maxLambdaSize": "15mb",
                 "runtime": "python3.13"
@@ -14,5 +16,6 @@
             "src": "/.*",
             "dest": "littlelemon/wsgi.py"
         }
-    ]
+    ],
+    "buildCommand": "python3 manage.py collectstatic --noinput"
 }
