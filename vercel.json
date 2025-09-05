@@ -1,7 +1,7 @@
 {
     "builds": [
         {
-            "src": "littlelemon_project/wsgi.py",
+            "src": "littlelemon/wsgi.py",
             "use": "@vercel/python",
             "config": {
                 "maxLambdaSize": "15mb",
@@ -12,7 +12,7 @@
     "routes": [
         {
             "src": "/.*",
-            "dest": "littlelemon_project/wsgi.py"
+            "dest": "littlelemon/wsgi.py"
         }
     ]
 }
