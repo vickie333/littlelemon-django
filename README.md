@@ -17,10 +17,11 @@ A Django web application for the Little Lemon restaurant that allows customers t
 
 ## Technology Stack
 
-- **Backend**: Django 4.1.1
-- **Database**: SQLite3
+- **Backend**: Django 4.1.1 (development), Django 5.x (production)
+- **Database**: SQLite3 (development), PostgreSQL Neon (production on Vercel)
 - **Frontend**: HTML templates with CSS styling
 - **Python Version**: 3.13
+- **Logging**: [Loguru](https://github.com/Delgan/loguru) for advanced logging
 
 ## Installation
 
@@ -40,7 +41,19 @@ pipenv install
 pipenv shell
 ```
 
-4. Run database migrations:
+
+
+4. Set up your environment variables:
+	 - Create a `.env` file in the project root with at least:
+		 ```env
+		 SECRET_KEY=your_secret_key
+		 DEBUG=True
+		 ALLOWED_HOSTS=.vercel.app,localhost,127.0.0.1
+		 # For production on Vercel, add:
+		 # DATABASE_URL=postgresql://user:password@host:port/dbname
+		 ```
+
+5. Run database migrations:
 ```bash
 python manage.py migrate
 ```
@@ -55,8 +68,15 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
+
+
 7. Open your browser and visit `http://127.0.0.1:8000/`
 
+
+## Production on Vercel
+
+- The deployment on Vercel uses an external PostgreSQL database (Neon). You must define the `DATABASE_URL` environment variable in your Vercel project settings with your Neon database URL.
+- Advanced logging is handled by Loguru, allowing for better error and event tracking in production.
 
 ## Development
 
@@ -66,3 +86,4 @@ This project was created as part of a Django learning assessment and demonstrate
 - Templates and static files
 - Forms and form handling
 - Admin interface customization
+- Advanced logging with Loguru
