@@ -6,3 +6,5 @@ wheel==0.45.1
 whitenoise==6.9.0
 dj-database-url==3.0.1
 psycopg[binary]==3.2.9
+loguru==0.7.3
+django-environ==0.12.0

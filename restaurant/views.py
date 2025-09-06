@@ -2,10 +2,9 @@
 from django.shortcuts import render
 from .forms import BookingForm
 from .models import Menu, Booking
+from loguru import logger
 
 
-
-# Create your views here.
 def home(request):
     return render(request, 'index.html')
 
@@ -21,10 +20,9 @@ def book(request):
     context = {'form':form}
     return render(request, 'book.html', context)
 
-# Add your code here to create new views
 def menu(request):
-    menu_data = Menu.objects.all() # Get all menu items 
-
+    menu_data = Menu.objects.all() 
+ 
     return render(request, 'menu.html', {'menu': menu_data})
 
 def display_menu_item(request, pk=None):

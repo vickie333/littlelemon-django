@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
+from loguru import logger
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-r-%0eqcja86asp_+*1@3d6t9wm65$7^p*v^m961p@)w7*3ob0n'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # api/settings.py
 ALLOWED_HOSTS = ['.vercel.app','localhost','127.0.0.1']
@@ -148,3 +149,48 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Logging
+LOGGING_CONFIG = None
+
+LOGURU_LOGINS = {
+    "handlers": [
+        {
+            "sink": BASE_DIR / "logs/debug.log",
+            "level": "DEBUG",
+            "filter": lambda record: record["level"].no <= logger.level("WARNING").no,
+            "format": ("{time:YYYY-MM-DD HH:mm:ss.SSS}  | {level: <8} | {name}:{function}:{line} - {message}"),
+            "rotation": "10 MB",
+            "retention": "30 days",
+            "compression": "zip"
+        },
+        {
+            "sink": BASE_DIR / "logs/error.log",
+            "level": "ERROR",
+            "format": ("{time:YYYY-MM-DD HH:mm:ss.SSS}  | {level: <8} | {name}:{function}:{line} - {message}"),
+            "rotation": "10 MB",
+            "retention": "30 days",
+            "compression": "zip",
+            "backtrace": True,
+            "diagnose": True,
+        }
+    ]
+}
+
+logger.configure(**LOGURU_LOGINS)
+
+
+LOGGIN = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "loguru": {
+            "class": "interceptor.InterceptorHandler"
+        }
+    },
+    "root": {
+        "handlers": ["loguru"],
+        "level": "DEBUG",
+    }
+}
