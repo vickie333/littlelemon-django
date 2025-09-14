@@ -5,9 +5,9 @@
       "src": "littlelemon/wsgi.py",
       "use": "@vercel/python",
       "config": {
-        "maxLambdaSize": "15mb",
         "runtime": "python3.12",
-        "buildCommand": "pip install -r requirements.txt && python manage.py collectstatic --no-input --clear"
+        "maxLambdaSize": "50mb",
+        "buildCommand": "echo '--- START BUILD ---' && pip install -r requirements.txt && python manage.py collectstatic --no-input --clear && echo '--- COLLECTSTATIC DONE ---'"
       }
     }
   ],
