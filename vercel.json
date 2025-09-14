@@ -1,13 +1,13 @@
 {
   "version": 2,
+  "buildCommand": "echo '--- START BUILD ---' && pip install -r requirements.txt && python manage.py collectstatic --no-input --clear && echo '--- COLLECTSTATIC DONE ---'",
   "builds": [
     {
       "src": "littlelemon/wsgi.py",
       "use": "@vercel/python",
       "config": {
         "runtime": "python3.12",
-        "maxLambdaSize": "50mb",
-        "buildCommand": "echo '--- START BUILD ---' && pip install -r requirements.txt && python manage.py collectstatic --no-input --clear && echo '--- COLLECTSTATIC DONE ---'"
+        "maxLambdaSize": "50mb"
       }
     }
   ],
