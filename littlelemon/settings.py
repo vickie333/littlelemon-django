@@ -116,13 +116,12 @@ USE_I18N = True
 USE_TZ = True
 
 
-STATIC_URL = 'restaurant/static/'
+STATIC_URL = '/static/'                       # <-- cambiar a esto
 STATIC_ROOT = os.path.join(ENV_DIR, 'staticfiles')
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-
 STATICFILES_DIRS = [
-    "restaurant/static",
+    os.path.join(ENV_DIR, "restaurant", "static"),
 ]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
