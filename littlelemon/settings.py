@@ -15,6 +15,8 @@ import os
 import dj_database_url
 from loguru import logger
 import environ
+import sys
+import logging
 
 
 ENV_DIR = Path(__file__).resolve().parent.parent
@@ -116,7 +118,7 @@ USE_I18N = True
 USE_TZ = True
 
 
-STATIC_URL = '/static/'                       # <-- cambiar a esto
+STATIC_URL = '/static/'                      
 STATIC_ROOT = os.path.join(ENV_DIR, 'staticfiles')
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
@@ -126,45 +128,34 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGGING_CONFIG = None
-
-LOGURU_LOGINS = {
+LOGURU_CONFIG = {
     "handlers": [
         {
-            "sink": ENV_DIR / "logs/debug.log",
-            "level": "DEBUG",
-            "filter": lambda record: record["level"].no <= logger.level("WARNING").no,
-            "format": ("{time:YYYY-MM-DD HH:mm:ss.SSS}  | {level: <8} | {name}:{function}:{line} - {message}"),
-            "rotation": "10 MB",
-            "retention": "30 days",
-            "compression": "zip"
-        },
-        {
-            "sink": ENV_DIR / "logs/error.log",
-            "level": "ERROR",
-            "format": ("{time:YYYY-MM-DD HH:mm:ss.SSS}  | {level: <8} | {name}:{function}:{line} - {message}"),
-            "rotation": "10 MB",
-            "retention": "30 days",
-            "compression": "zip",
-            "backtrace": True,
-            "diagnose": True,
+            "sink": sys.stdout,
+            "level": "DEBUG" if DEBUG else "INFO",
+            "format": ("{time:YYYY-MM-DD HH:mm:ss} | {level: <8} | {name}:{function}:{line} - {message}"),
         }
     ]
 }
 
-logger.configure(**LOGURU_LOGINS)
+logger.configure(**LOGURU_CONFIG)
 
-
-LOGGIN = {
+LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
     "handlers": {
-        "loguru": {
-            "class": "interceptor.InterceptorHandler"
-        }
+        "console": {
+            "class": "logging.StreamHandler",
+            "stream": sys.stdout,
+        },
     },
     "root": {
-        "handlers": ["loguru"],
-        "level": "DEBUG",
-    }
+        "handlers": ["console"],
+        "level": "DEBUG" if DEBUG else "INFO",
+    },
 }
+
+if DEBUG:
+    local_logs_dir = ENV_DIR / "logs"
+    local_logs_dir.mkdir(parents=True, exist_ok=True)
+    logger.add(str(local_logs_dir / "debug.log"), level="DEBUG", rotation="10 MB")
