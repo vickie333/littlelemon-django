@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "pip install -r requirements.txt && python manage.py collectstatic --no-input --clear && echo '--- AFTER COLLECTSTATIC ---' && ls -la && ls -la staticfiles && mkdir -p /vercel/output/staticfiles && cp -a staticfiles/. /vercel/output/staticfiles && echo '--- COPIED TO /vercel/output/staticfiles ---' && ls -la /vercel/output/staticfiles",
+  "buildCommand": "pip install -r requirements.txt && python manage.py collectstatic --no-input --clear",
   "builds": [
     {
       "src": "littlelemon/wsgi.py",
