@@ -7,8 +7,7 @@
       "config": {
         "maxLambdaSize": "15mb",
         "runtime": "python3.12",
-        "buildCommand": "pip install -r requirements.txt && python manage.py migrate --noinput && python manage.py collectstatic --no-input --clear"
-      }
+        "buildCommand": "pip install -r requirements.txt && python manage.py collectstatic --no-input --clear"      }
     }
   ],
   "routes": [
