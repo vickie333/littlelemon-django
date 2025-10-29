@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "buildCommand": "./build.sh",
   "builds": [
     {
       "src": "littlelemon/wsgi.py",
@@ -9,10 +8,16 @@
         "runtime": "python3.12",
         "maxLambdaSize": "50mb"
       }
+    },
+    {
+      "src": "staticfiles/**/*",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
     { "src": "/static/(.*)", "dest": "/staticfiles/$1" },
+    { "src": "/favicon.ico", "dest": "/staticfiles/img/favicon.ico" },
+    { "src": "/favicon.png", "dest": "/staticfiles/img/favicon.ico" },
     { "src": "/(.*)", "dest": "littlelemon/wsgi.py" }
   ]
 }
